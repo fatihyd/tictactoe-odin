@@ -14,8 +14,9 @@ function createBoard() {
 }
 
 function checkBoard() {
-    /* check horizontal */
+    /* check horizontal and vertical */
     for (let i = 0; i < board.length; i++) {
+        /* horizontal */
         if (board[i][0].textContent !== "") {
             if (board[i][0].textContent === board[i][1].textContent
                 && board[i][1].textContent === board[i][2].textContent) {
@@ -23,9 +24,7 @@ function checkBoard() {
                 gameInformation.textContent = "Winner: Player " + winner;
             }
         }
-    }
-    /* check vertical */
-    for (let i = 0; i < board.length; i++) {
+        /* vertical */
         if (board[0][i].textContent !== "") {
             if (board[0][i].textContent === board[1][i].textContent
                 && board[1][i].textContent === board[2][i].textContent) {
@@ -34,19 +33,13 @@ function checkBoard() {
             }
         }
     }
-    /* check the main diagonal */
-    if (board[0][0].textContent !== "") {
-        if (board[0][0].textContent === board[1][1].textContent
-            && board[1][1].textContent === board[2][2].textContent) {
-            winner = board[0][0].textContent;
-            gameInformation.textContent = "Winner: Player " + winner;
-        }
-    }
-    /* check the antidiagonal */
-    if (board[0][2].textContent !== "") {
-        if (board[0][2].textContent === board[1][1].textContent
-            && board[1][1].textContent === board[2][0].textContent) {
-            winner = board[0][2].textContent;
+    /* check the diagonals */
+    if (board[1][1].textContent !== "") {
+        if ((board[0][0].textContent === board[1][1].textContent
+            && board[1][1].textContent === board[2][2].textContent) ||
+            (board[0][2].textContent === board[1][1].textContent
+                && board[1][1].textContent === board[2][0].textContent)) {
+            winner = board[1][1].textContent;
             gameInformation.textContent = "Winner: Player " + winner;
         }
     }
@@ -54,25 +47,25 @@ function checkBoard() {
 
 let boardContainer = document.querySelector("#board-container");
 let board = createBoard();
-let isX = true;
+let isPlayerXTurn = true;
 let winner;
 let gameInformation = document.querySelector("#game-info");
-gameInformation.textContent = isX ? "Player X's turn" : "Player O's turn";
+gameInformation.textContent = isPlayerXTurn ? "Player X's turn" : "Player O's turn";
 
 for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
         board[i][j].addEventListener("click", function () {
             if (!winner) {
                 if (board[i][j].textContent === "") {
-                    if (isX) {
+                    if (isPlayerXTurn) {
                         board[i][j].textContent = "X";
-                        isX = false;
+                        isPlayerXTurn = false;
                     }
                     else {
                         board[i][j].textContent = "O";
-                        isX = true;
+                        isPlayerXTurn = true;
                     }
-                    gameInformation.textContent = isX ? "Player X's turn" : "Player O's turn";
+                    gameInformation.textContent = isPlayerXTurn ? "Player X's turn" : "Player O's turn";
                     checkBoard();
                 }
             }

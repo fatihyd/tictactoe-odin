@@ -30,6 +30,10 @@ header {
     font-size: 36px;
 }
 
+#board-container button:hover {
+    background-color: #9EC8B9;
+}
+
 body {
     background-color: #c5c3c6;
 }
