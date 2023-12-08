@@ -39,6 +39,7 @@ function Game() {
                     && this.board[i][1].textContent === this.board[i][2].textContent) {
                     this.winner = this.board[i][0].textContent;
                     this.gameInformation.textContent = "Winner: Player " + this.winner;
+                    return true;
                 }
             }
             // vertical
@@ -47,6 +48,7 @@ function Game() {
                     && this.board[1][i].textContent === this.board[2][i].textContent) {
                     this.winner = this.board[0][i].textContent;
                     this.gameInformation.textContent = "Winner: Player " + this.winner;
+                    return true;
                 }
             }
         }
@@ -58,8 +60,25 @@ function Game() {
                     && this.board[1][1].textContent === this.board[2][0].textContent)) {
                 this.winner = this.board[1][1].textContent;
                 this.gameInformation.textContent = "Winner: Player " + this.winner;
+                return true;
             }
         }
+        return false;
+    }
+
+    this.checkTie = function () {
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board.length; j++) {
+                if (this.board[i][j].textContent === "") {
+                    return false;
+                }
+            }
+        }
+        if (!this.winner) {
+            this.gameInformation.textContent = "It's a tie!";
+            return true;
+        }
+        return false;
     }
 
     this.handleCellClick = function (i, j) {
@@ -73,8 +92,12 @@ function Game() {
                     this.board[i][j].textContent = "O";
                     this.isPlayerXTurn = true;
                 }
-                this.gameInformation.textContent = this.isPlayerXTurn ? "Player X's turn" : "Player O's turn";
-                this.checkBoard();
+
+                let isWon = this.checkBoard();
+                let isTie = this.checkTie();
+                if (!isWon && !isTie) {
+                    this.gameInformation.textContent = this.isPlayerXTurn ? "Player X's turn" : "Player O's turn";
+                }
             }
         }
     }
