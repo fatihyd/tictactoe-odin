@@ -40,6 +40,22 @@ body {
 
 main h2 {
     font-size: 28px;
-    text-align: center;
     margin-bottom: 30px;
+}
+
+#restart-game {
+    width: 120px;
+    height: 50px;
+    font-size: 22px;
+    font-weight: bold;
+    background-color: #9EC8B9;
+    color: #1B4242;
+    margin-top: 30px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
